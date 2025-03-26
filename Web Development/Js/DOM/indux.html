@@ -1,1 +1,148 @@
-hello
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM</title>
+    <style>
+        #greeting , .remove , .mouse{
+            height: 100px;
+            width: 200px;
+            border: 2px solid black;
+            padding: 20px;
+            margin: 20px;
+        }
+        #btn{
+            width: 200px;
+            margin: 20px;
+            padding: 20px;
+            font-size: larger;
+            cursor: pointer;
+        }
+        .list{
+            border: 2px solid black;
+            padding: 20px;
+        }
+    </style>
+  </head>
+    <body>
+        <!-- DOM Introduction
+            Create a div element with an id "greeting".
+            Write a JavaScript function that changes the inner text of this div to "Hello, World!" when the page loads. -->
+                <div id="greeting">
+                    Assalam - o - Alikum
+                </div>
+                
+<!-- // ============================================================ -->
+            <!-- Selecting DOM Elements
+            Create a button with the text "Click me".
+            Use getElementById or querySelector to select the button and change its text to "Clicked!" when it is clicked. -->
+                <button id="btn">Click me</button>
+
+<!-- // ============================================================ -->
+            <!-- Creating New Elements
+            Write a function that creates a new list item (<li>) and adds it to an unordered list (<ul>) when a button is clicked. -->
+                <div class="list">
+                    <ul>
+                        <li>1 item</li>
+                        <li>2 item</li>
+                        
+                    </ul>
+                    <button class="list_btn">Add Element</button>
+                    <button class="list_btn_remove">Remove Element</button>
+                </div>
+
+<!-- // ============================================================ -->
+            <!-- Editing and Removing DOM Elements
+            Create a div element with the text "To be removed".
+            Write a JavaScript function that removes this div from the DOM when a button is clicked. -->
+            <div class="remove">
+                To be removed
+                <button class="btn_remove">Remove Div</button>
+            </div>
+
+<!-- // ============================================================ -->
+            <!-- Mouse Event
+            Write a function that tracks the mouse position and logs the x and y coordinates when the mouse is moved over a specific div. -->
+             <div class="mouse">
+                <p> Move your Mouse : </p>
+             </div>
+
+<!-- // ============================================================ -->
+             <!-- Form Event
+             Create a form with an input field and a submit button. Write a function that listens for the submit event, prevents the default form submission, and logs the input value to the console.
+              -->
+             <form action="">
+                <input type="text" name="name" id="name" placeholder="Enter Name" >
+                <button id="submit">Submit</button>
+             </form>
+    </body>
+    <script>
+        // Write a JavaScript function that changes the inner text of this div to "Hello, World!" when the page loads. -->
+            function innerTextChange(){
+                let div=document.querySelector("#greeting")
+                div.textContent="Hello, World!";
+            }
+            innerTextChange();
+
+// ============================================================
+        // Use getElementById or querySelector to select the button and change its text to "Clicked!" when it is clicked. -->
+            let btn = document.querySelector("#btn")
+            let i = 0
+            btn.addEventListener("click",()=>{
+                i++;
+                btn.textContent="Clicked! "+i;
+            })
+
+
+// ============================================================
+        // Write a function that creates a new list item (<li>) and adds it to an unordered list (<ul>) when a button is clicked.
+            function newList(){
+                let btn = document.querySelector(".list_btn")
+                i = 2;
+                btn.addEventListener("click",()=>{
+                    i++;
+                    let newli = document.createElement("li");
+                    newli.textContent=i+" item"
+                    document.querySelector("ul").append(newli)
+                })
+                let remove = document.querySelector(".list_btn_remove")
+                remove.addEventListener("click",()=>{
+                    let last=document.querySelector("ul").lastChild;
+                    last.remove();
+                    i--;
+                })
+            }
+            newList();
+
+// ============================================================
+            // Write a JavaScript function that removes this div from the DOM when a button is clicked. -->
+            function removDiv(){
+                let btn = document.querySelector(".btn_remove")
+                btn.addEventListener("click", ()=>{
+                    document.querySelector(".remove").remove();
+                })
+            }
+            removDiv();
+
+// ============================================================
+            // Write a function that tracks the mouse position and logs the x and y coordinates when the mouse is moved over a specific div. -->
+            function mouseMovement(){
+                document.querySelector(".mouse").addEventListener("mousemove",(e)=>{
+                    document.querySelector("p").textContent=`Move your Mouse : x ${e.offsetX}, y: ${e.offsetY}`
+                })
+            }
+            mouseMovement();
+
+// ============================================================
+            // Create a form with an input field and a submit button. Write a function that listens for the submit event, prevents the default form submission, and logs the input value to the console.
+             function form(){
+                const form = document.querySelector("form");
+                form.addEventListener("submit", function (e) {
+                  e.preventDefault();
+                  console.log(e.target.name.value);
+                });
+             }
+             form();
+    </script>
+</html>
